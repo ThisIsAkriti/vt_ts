@@ -21,12 +21,15 @@ const App : React.FC = () => {
 
   const [records , setRecords] = useState<dataType>();
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
+  const [currentPage , setCurrentPage] = useState<number>(1);
   const [inputValue , setInputValue] = useState('');
   const [show , setShow] = useState(false);
-  const fetchData = async() => {
-    const data = await fetch('https://api.artic.edu/api/v1/artworks?page=1');
-    const json = await data.json();
+  const totalPages = 5;
 
+  const fetchData = async(page : number) => {
+    const data = await fetch(`https://api.artic.edu/api/v1/artworks?page=${page}`);
+    const json = await data.json();
+    setRecords(json.data);
 
     const formattedData = json.data.map((item:dataType, index:number) => ({
       id:index,
@@ -39,8 +42,8 @@ const App : React.FC = () => {
     setRecords(formattedData);
   }
   useEffect(() => {
-    fetchData();
-  } , [])
+    fetchData(currentPage);
+  } , [currentPage])
 
   const handleArrowClick = () => {
     setShow(!show);
@@ -52,7 +55,7 @@ const App : React.FC = () => {
   const handleSubmit = () => {
     const numberOfRows = parseInt(inputValue , 10);
 
-    if(!isNaN(numberOfRows) && numberOfRows > 0 || records){
+    if(!isNaN(numberOfRows) && numberOfRows > 0){
       const newSelectedRows = Array.from({length:Math.min(numberOfRows)} , (_, index) => index);
       setSelectedRows(newSelectedRows);
     }
@@ -60,6 +63,10 @@ const App : React.FC = () => {
   }
   const handleRowSelected = (row:dataType) => {
     return selectedRows.includes(row.id);
+  }
+
+  const handlePageChange = (newPage : number) => {
+    setCurrentPage(newPage)
   }
 
   const columns : columnsType[] = [
@@ -104,9 +111,20 @@ const App : React.FC = () => {
       data = {records}
       selectableRows
       fixedHeader
-      pagination
       selectableRowSelected={row => handleRowSelected(row)}
       ></DataTable>
+
+      <div className='button'>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            onClick={() => handlePageChange(index + 1)}
+            disabled={currentPage === index + 1}
+          >
+          {index + 1}
+          </button>
+        ))}
+      </div>
     </div>
   )
 }

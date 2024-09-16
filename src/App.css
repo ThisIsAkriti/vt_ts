@@ -44,3 +44,11 @@
 .submit{
   margin:0rem 0.2rem 0.2rem 6rem;
 }
+.button{
+  display:flex;
+  justify-content:end;
+  align-items:center;
+  margin-right:1rem;
+  margin-bottom:1rem;
+
+}
