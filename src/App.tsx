@@ -19,7 +19,7 @@ interface dataType{
 }
 const App : React.FC = () => {
 
-  const [records , setRecords] = useState<dataType>();
+  const [records , setRecords] = useState<dataType[]>([]);
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
   const [currentPage , setCurrentPage] = useState<number>(1);
   const [inputValue , setInputValue] = useState('');
@@ -108,7 +108,7 @@ const App : React.FC = () => {
       </div>
       <DataTable 
       columns={columns}
-      data = {records}
+      data = {records || []}
       selectableRows
       fixedHeader
       selectableRowSelected={row => handleRowSelected(row)}
