@@ -1,0 +1,46 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.container{
+  border:1px solid gray;
+  position:relative;
+  z-index:10;
+}
+.arrow{
+  position:absolute;
+  width:fit-content;
+  margin-left:40px;
+  z-index:30;
+  margin-top:16px;
+  display:flex;
+  flex-direction:column;
+}
+.arrow-img{
+  width:16px;
+  
+}
+.input-container{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  border:1px solid gray;
+  width:12rem;
+  height:4rem;
+  border-radius:4px;
+  background-color:white;
+}
+.input-box{
+  padding-top:0.5rem 0 0.5rem 0.2rem;
+  margin:0.2rem 0.2rem;
+  outline:none;
+  widht:4rem;
+  height:2rem;
+  border:1px solid gray;
+  border-radius:2px;
+}
+
+.submit{
+  margin:0rem 0.2rem 0.2rem 6rem;
+}
